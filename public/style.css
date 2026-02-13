@@ -1,0 +1,516 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  max-width: 1000px;
+  width: 100%;
+  overflow: hidden;
+}
+
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header h1 {
+  font-size: 24px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+header .subtitle {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  gap: 20px;
+  padding: 0;
+}
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 15px;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Date Separator */
+.date-separator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 15px 0;
+  opacity: 0.6;
+}
+
+.date-separator::before,
+.date-separator::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+}
+
+.date-separator span {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #999;
+}
+
+/* Message Styling */
+.message {
+  display: flex;
+  margin-bottom: 4px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.message.ai {
+  justify-content: flex-start;
+}
+
+.message-wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  max-width: 70%;
+}
+
+.message.user .message-wrapper {
+  flex-direction: row-reverse;
+}
+
+.message-bubble {
+  padding: 10px 14px;
+  border-radius: 18px;
+  word-wrap: break-word;
+  line-height: 1.5;
+  max-width: 100%;
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.message.user .message-bubble {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message.ai .message-bubble {
+  background: white;
+  color: #333;
+  border-bottom-left-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.message-text {
+  word-break: break-word;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.message-time {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 2px;
+  text-align: right;
+  margin-bottom: 6px;
+}
+
+.message.user .message-time {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.message.ai .message-time {
+  color: #999;
+}
+
+/* Copy Button */
+.copy-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+  flex-shrink: 0;
+  color: #666;
+  align-self: flex-end;
+  margin-top: 4px;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.05);
+  transform: scale(1.15);
+}
+
+.copy-btn:active {
+  transform: scale(0.95);
+}
+
+.copy-btn.copied {
+  opacity: 1;
+  color: #28a745;
+}
+
+/* Input Area */
+.input-area {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#messageInput {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 24px;
+  font-size: 14px;
+  transition: all 0.3s;
+  resize: none;
+  max-height: 100px;
+  font-family: inherit;
+}
+
+#messageInput:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+  min-width: 80px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-clear {
+  background: #6c757d;
+  min-width: auto;
+  padding: 10px 18px;
+}
+
+.btn-clear:hover {
+  box-shadow: 0 8px 16px rgba(108, 117, 125, 0.3);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: white;
+  border-left: 1px solid #e0e0e0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.info-section {
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.05) 0%,
+    rgba(118, 75, 162, 0.05) 100%
+  );
+  padding: 12px 14px;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+}
+
+.info-section p {
+  margin: 8px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.info-section strong {
+  color: #333;
+}
+
+.status-ready {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.status-loading {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+.status-error {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.model-info {
+  background: linear-gradient(
+    135deg,
+    rgba(118, 75, 162, 0.05) 0%,
+    rgba(102, 126, 234, 0.05) 100%
+  );
+  padding: 12px 14px;
+  border-radius: 8px;
+  border-left: 3px solid #764ba2;
+}
+
+.model-info h4 {
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+}
+
+.model-info p {
+  font-size: 12px;
+  color: #777;
+  margin: 0;
+}
+
+footer {
+  background: #f8f9fa;
+  padding: 12px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+  border-radius: 0 0 16px 0;
+  font-size: 12px;
+  color: #999;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  main {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+  }
+
+  .chat-container {
+    margin: 10px;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    padding: 15px;
+    max-height: 150px;
+    flex-direction: row;
+    gap: 15px;
+    overflow-x: auto;
+  }
+
+  .message-wrapper {
+    max-width: 85%;
+  }
+
+  .messages {
+    max-height: 300px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  button {
+    min-width: 70px;
+    padding: 9px 18px;
+  }
+}
+
+/* Code Block Styling */
+.code-block {
+  background: #1e1e1e;
+  border-radius: 8px;
+  margin: 10px 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.code-language {
+  background: #2d2d2d;
+  color: #999;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  border-bottom: 1px solid #3d3d3d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 12px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.code-block code {
+  color: #e8e8e8;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  background: none;
+  padding: 0;
+}
+
+.copy-code-btn {
+  /* place below the code block, aligned to the right */
+  align-self: flex-end;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #666;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin: 6px 8px 0 0;
+}
+
+.copy-code-btn:hover {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #333;
+}
+
+.copy-code-btn:active {
+  transform: scale(0.98);
+}
+
+.copy-code-btn.copied {
+  color: #4caf50;
+}
+
+/* Scrollbar styling */
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-radius: 3px;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+.sidebar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}

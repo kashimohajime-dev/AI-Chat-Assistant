@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Chat | OpenRouter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🤖 AI Chat Assistant</h1>
+        <p class="subtitle">Powered by OpenRouter</p>
+      </header>
+
+      <main>
+        <div class="chat-container">
+          <div id="messages" class="messages"></div>
+          <div class="input-area">
+            <input
+              type="text"
+              id="messageInput"
+              placeholder="Write your message here..."
+              autocomplete="off"
+            />
+            <button id="sendBtn">Send</button>
+            <button id="clearBtn" class="btn-clear">Clear</button>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <h3>Information</h3>
+          <div class="info-section">
+            <p><strong>Messages:</strong> <span id="messageCount">0</span></p>
+            <p>
+              <strong>Status:</strong>
+              <span id="status" class="status-ready">Ready</span>
+            </p>
+          </div>
+          <div class="model-info">
+            <h4>Model: gpt-3.5-turbo</h4>
+            <p>Fast and efficient AI model</p>
+          </div>
+        </aside>
+      </main>
+
+      <footer>
+        <p>© 2025 AI Chat Application | OpenRouter Integration</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
